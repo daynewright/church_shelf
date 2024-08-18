@@ -8,5 +8,9 @@
     "*.html.erb": "html",
     "erb": "html",
     "ruby": "html"
+  },
+  "[erb]": {
+    "editor.defaultFormatter": "manuelpuyol.erb-linter",
+    "editor.formatOnSave": true
   }
 }
