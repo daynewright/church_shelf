@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.inlineSuggest.enabled": true,
+  "emmet.includeLanguages": {
+    "*.html.erb": "html",
+    "erb": "html",
+    "ruby": "html"
+  }
+}
