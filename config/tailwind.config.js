@@ -14,7 +14,7 @@ module.exports = {
       primary: {
         DEFAULT: colors.teal[500], // #2DD4BF
         dark: colors.teal[600], // #0D9488
-        light: colors.teal[200], // #99F6E4
+        light: colors.teal[400], // #99F6E4
       },
       secondary: {
         DEFAULT: colors.indigo[500], // #6366F1
