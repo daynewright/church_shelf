@@ -10,23 +10,23 @@
 
 Category.create!(
     name: "Bible Studies"
-);
+)
 Category.create!(
     name: "Curriculum"
-);
+)
 Category.create!(
     name: "Theology"
-);
+)
 Category.create!(
     name: "Devotionals"
-);
+)
 Category.create!(
     name: "Prayer Resources"
-);
+)
 
 10.times do |i|
-    total_copies = rand(1..10);
-    available_copies = rand(0..total_copies);
+    total_copies = rand(1..10)
+    available_copies = rand(0..total_copies)
 
     resource = Resource.create!(
       title: Faker::Book.title,
@@ -36,11 +36,11 @@ Category.create!(
       isbn: Faker::Code.isbn,
       published_date: Faker::Date.between(from: '1900-01-01', to: '2024-12-31'),
       publisher: Faker::Book.publisher,
-      language: Faker::Nation.language, 
+      language: Faker::Nation.language,
       total_copies: total_copies,
       available_copies: available_copies,
       location: Faker::Address.secondary_address,
-    );
+    )
 
-    resource.image.attach(io: File.open("db/images/image_#{i + 1}.jpeg"), filename: resource.title);
+    resource.image.attach(io: File.open("db/images/image_#{i + 1}.jpeg"), filename: resource.title)
   end

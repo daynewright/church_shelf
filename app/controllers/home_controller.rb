@@ -1,7 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @resources = Resource.all;
+    @resources = Resource.all
   end
-
-  
 end
