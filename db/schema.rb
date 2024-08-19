@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_19_004512) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_19_163644) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_19_004512) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "checkouts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "resource_id", null: false
+    t.datetime "checkout_date"
+    t.datetime "return_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "returned", default: false, null: false
+    t.index ["resource_id"], name: "index_checkouts_on_resource_id"
+    t.index ["user_id", "resource_id"], name: "index_checkouts_on_user_id_and_resource_id", unique: true
+    t.index ["user_id"], name: "index_checkouts_on_user_id"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -101,6 +114,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_19_004512) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "checkouts", "resources"
+  add_foreign_key "checkouts", "users"
   add_foreign_key "resources", "categories"
   add_foreign_key "reviews", "resources"
   add_foreign_key "reviews", "users"

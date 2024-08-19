@@ -22,7 +22,7 @@ module Api
       private
 
       def wishlist_params
-        params.permit(:user_id, :resource_id)
+        params.require(:wishlist).permit(:user_id, :resource_id)
       end
     end
 end

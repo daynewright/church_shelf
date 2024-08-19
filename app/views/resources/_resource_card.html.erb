@@ -1,4 +1,4 @@
-<div class="group relative cursor-pointer">
+<div class="group relative cursor-pointer flex flex-col h-full">
     <div class="relative w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-85 lg:h-80">
         <%= image_tag resource.image, class: "h-full w-full object-cover object-center lg:h-full lg:w-full border", alt: resource.title %>
         <% wishlist_item = resource.wishlist_for_user(current_user) %>
@@ -18,23 +18,23 @@
             </svg>
         </button>
     </div>
-    <div class="mt-4 flex flex-col">
-        <div class="flex justify-between gap-4">
-            <div class="mb-8">
-                <h3 class="text-md">
+    <div class="mt-4 flex flex-col flex-grow">
+        <div class="flex flex-grow">
+            <div class="mb-8 flex-grow">
+                <h3 class="text-sm font-bold">
                     <%= resource.title %>                
                 </h3>
-                <p class="text-sm text-slate-600"><%= resource.description %></p>
+                <p class="text-sm font-light text-slate-600"><%= resource.description %></p>
             </div>
-            <div class="text-sm flex">
+            <div class="text-sm flex items-start">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
                 </svg>
-                <span class="text-slate-700">(5.0)</span>
+                <span class="text-slate-700 ps-1">(<%= resource.rating %>)</span>
             </div>
         </div>
-        <div class="text-sm font-medium text-gray-700">
-            <p>AVAILABILTY</p>
+        <div class="text-sm font-medium text-gray-700 mt-auto">
+            <p><%= resource.available_copies %> of <%= resource.total_copies %> available </p>
         </div>
     </div>
 </div>
