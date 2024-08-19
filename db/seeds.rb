@@ -8,10 +8,38 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.create!({
-    email: "user1@gmail.com",
-    password: "123456"
-})
+require 'open-uri'
+
+pictures = []
+10.times do
+  # Generate the URL
+  url = Faker::Avatar.image(size: "300x300", format: "png")
+
+  # Open the URL and create an io object
+  pictures << URI.open(url)
+end
+
+10.times do |i|
+  # Create a user
+  random_user = User.create!(
+    email: "test#{i + 1}@gmail.com",
+    password: '123456'
+  )
+
+  # Update the profile of the user
+  random_user.profile.update!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    address_1: Faker::Address.street_address,
+    address_2: Faker::Address.street_name,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    country: "US"
+  )
+
+  # Attach the picture to the profile
+  random_user.profile.picture.attach(io: pictures[i], filename: "#{random_user.profile.first_name}.png")
+end
 
 Category.create!(
     name: "Bible Studies"
@@ -36,7 +64,7 @@ Category.create!(
     resource = Resource.create!(
       title: Faker::Book.title,
       author: Faker::Book.author,
-      description: Faker::Lorem.sentence,
+      description: Faker::Lorem.paragraph(sentence_count: (5..10).to_a.sample),
       category_id: Category.pluck(:id).sample, # Randomly selects an existing category ID
       isbn: Faker::Code.isbn,
       published_date: Faker::Date.between(from: '1900-01-01', to: '2024-12-31'),
@@ -51,9 +79,9 @@ Category.create!(
 
     (1..5).to_a.sample.times do
         Review.create!({
-            comment: "#{Faker::Marketing.buzzwords} and #{Faker::Marketing.buzzwords}",
+            comment: "#{Faker::Marketing.buzzwords} and #{Faker::Marketing.buzzwords}. #{Faker::Lorem.paragraph}. #{Faker::Quote.jack_handey}",
             rating: (1..5).to_a.sample,
-            user: user,
+            user: User.offset(rand(User.count)).first,
             resource: resource
         })
     end

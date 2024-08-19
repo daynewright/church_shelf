@@ -9,4 +9,12 @@ class User < ApplicationRecord
 
   has_many :wishlists, dependent: :destroy
   has_many :wishlisted_resources, through: :wishlists, source: :resource, dependent: :destroy
+
+  has_one :profile, dependent: :destroy
+
+  after_create :new_profile_if_needed
+
+  def new_profile_if_needed
+    create_profile if profile.nil?
+  end
 end

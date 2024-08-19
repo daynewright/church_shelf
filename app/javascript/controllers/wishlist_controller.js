@@ -5,7 +5,8 @@ export default class extends Controller {
 
   connect() {}
 
-  async updateWishlist() {
+  async updateWishlist(e) {
+    e.preventDefault();
     const userId = this.element.dataset.userId;
 
     if (userId === "") {
@@ -16,18 +17,24 @@ export default class extends Controller {
     const addedToWishList = this.element.dataset.wishlistStatus === "true";
     const resourceId = this.element.dataset.resourceId;
     const wishlistId = this.element.dataset.wishlistId;
+    const shouldRemoveWishlistItem =
+      this.element.dataset.shouldRemove === "true";
 
     if (addedToWishList) {
       try {
         await deleteWishlist(wishlistId);
-        this.element.classList.remove("text-yellow-500");
-        this.element.classList.remove("stroke-yellow-700");
+        if (shouldRemoveWishlistItem) {
+          this.element.closest(".resource-item").remove();
+        } else {
+          this.element.classList.remove("text-yellow-500");
+          this.element.classList.remove("stroke-yellow-700");
 
-        this.element.classList.add("text-gray-500");
-        this.element.classList.add("stroke-slate-700");
+          this.element.classList.add("text-gray-500");
+          this.element.classList.add("stroke-slate-700");
 
-        this.element.dataset.wishlistStatus = "false";
-        this.element.dataset.wishlistId = "";
+          this.element.dataset.wishlistStatus = "false";
+          this.element.dataset.wishlistId = "";
+        }
       } catch (e) {
         console.log(e);
       }
