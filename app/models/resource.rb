@@ -13,6 +13,10 @@ class Resource < ApplicationRecord
   has_one_attached :image
   belongs_to :category
 
+  def available?
+    available_copies > 0
+  end
+
   def update_rating!
     self.rating = reviews.average(:rating).to_f.round(1)
     save
