@@ -14,7 +14,7 @@ pictures = []
 10.times do
   # Generate the URL
   url = Faker::Avatar.image(size: "300x300", format: "png")
-  
+
   # Open the URL and create an io object
   pictures << URI.open(url)
 end
@@ -81,7 +81,7 @@ Category.create!(
         Review.create!({
             comment: "#{Faker::Marketing.buzzwords} and #{Faker::Marketing.buzzwords}. #{Faker::Lorem.paragraph}. #{Faker::Quote.jack_handey}",
             rating: (1..5).to_a.sample,
-            user: User.first,
+            user: User.offset(rand(User.count)).first,
             resource: resource
         })
     end

@@ -3,7 +3,7 @@
   <% if @resources.any? %>
     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
       <% @resources.each do |resource| %>
-        <%= render "resources/resource_card", resource: resource, remove: true %>
+        <%= render "resources/card", resource: resource, remove: true %>
       <% end %>
     </div>
   <% else %>

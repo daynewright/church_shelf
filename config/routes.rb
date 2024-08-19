@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :resources
   resources :wishlists, only: [ :index ]
   resources :checkouts, only: [ :create, :index ]
- 
+
   resource :profile, only: [ :edit, :update ]
 
   namespace :api do
