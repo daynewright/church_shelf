@@ -7,11 +7,18 @@ class Resource < ApplicationRecord
   }
 
   has_many :reviews, dependent: :destroy
+  has_many :wishlists, dependent: :destroy
+  has_many :wishlisted_by_users, through: :wishlists, source: :user
+
   has_one_attached :image
   belongs_to :category
 
   def update_rating!
     self.rating = reviews.average(:rating).to_f.round(1)
     save
+  end
+
+  def wishlist_for_user(user)
+    wishlists.find_by(user: user)
   end
 end
