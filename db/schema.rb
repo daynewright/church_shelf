@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_18_220300) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_19_000358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,7 +63,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_18_220300) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "rating", default: 0.0
     t.index ["category_id"], name: "index_resources_on_category_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "resource_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "rating"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_reviews_on_resource_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,4 +93,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_18_220300) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "resources", "categories"
+  add_foreign_key "reviews", "resources"
+  add_foreign_key "reviews", "users"
 end
