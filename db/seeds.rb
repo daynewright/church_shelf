@@ -8,6 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+user = User.create!({
+    email: "user1@gmail.com",
+    password: "123456"
+})
+
 Category.create!(
     name: "Bible Studies"
 )
@@ -43,4 +48,13 @@ Category.create!(
     )
 
     resource.image.attach(io: File.open("db/images/image_#{i + 1}.jpeg"), filename: resource.title)
-  end
+
+    (1..5).to_a.sample.times do
+        Review.create!({
+            comment: "#{Faker::Marketing.buzzwords} and #{Faker::Marketing.buzzwords}",
+            rating: (1..5).to_a.sample,
+            user: user,
+            resource: resource
+        })
+    end
+end
