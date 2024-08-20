@@ -1,3 +1,63 @@
 <div class="mx-auto max-w-2xl px-4 py-6 sm:px-6 lg:max-w-7xl lg:px-8">
-  <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Checked Out Resources</h1>
+  <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl mb-6">Your Checked Out Resources</h1>
+
+  <% if @checkouts_active.any? || @checkouts_due.any? %>
+      <!-- OVERDUE CHECKED OUT RESOURCES -->
+      <div class="flex text-2xl items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7 fill-red-500">
+          <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+        </svg>
+        <h1 class="text-slate-700">Overdue Resources</h1>
+      </div>
+      <% if @checkouts_due.any? %>
+        <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <% @checkouts_due.each do |checkout| %>
+            <div>
+              <%= render "resources/card", resource: checkout.resource, remove: false, hide_available: true %>
+              <button>Return</button>
+              <div class="text-sm font-medium text-gray-700 mt-auto">
+                <p class="font-bold pt-1">Quantity: <span class="font-medium"><%= checkout.quantity %></span></p>
+                <p class="font-bold">Checkout Date: <span class="font-medium"><%= checkout.checkout_date.strftime("%B %d, %Y") %></span></p>
+                <p class="font-bold">Return Date: <span class="font-medium text-primary"><%= checkout.return_date.strftime("%B %d, %Y") %></span></p>
+                <p class="font-bold text-slate-500 pt-1">due in <%= (checkout.return_date.to_date - Date.today).to_i %> day(s)</p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 m-4">You have nothing overdue! Keep on being awesome!</p>
+      <% end %>
+
+    <!-- ACTIVE CHECKED OUT RESOURCES -->
+    <div class="flex text-2xl items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7 fill-primary">
+        <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+      </svg>
+      <h1 class="text-slate-700">Active Resources</h1>
+    </div>
+    <% if @checkouts_active.any? %>
+      <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <% @checkouts_active.each do |checkout| %>
+          <div>
+            <%= render "resources/card", resource: checkout.resource, remove: false, hide_available: true %>
+            <%= button_to "Return Resource",
+              return_checkout_path(checkout),
+              method: :patch,
+              class: "cursor-pointer my-2 flex w-full items-center justify-center rounded-md border border-transparent px-6 py-2 text-base font-medium text-white bg-primary hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 "
+            %>
+            <div class="text-sm font-medium text-gray-700 mt-auto">
+              <p class="font-bold pt-1">Quantity: <span class="font-medium"><%= checkout.quantity %></span></p>
+              <p class="font-bold">Checkout Date: <span class="font-medium"><%= checkout.checkout_date.strftime("%B %d, %Y") %></span></p>
+              <p class="font-bold">Return Date: <span class="font-medium text-primary"><%= checkout.return_date.strftime("%B %d, %Y") %></span></p>
+              <p class="font-bold text-slate-500 pt-1">due in <%= (checkout.return_date.to_date - Date.today).to_i %> day(s)</p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <% else %>
+          <p class="text-gray-500 m-4">You have nothing actively checked out. You can check out resources from the main app!</p>
+      <% end %>
+  <% else %>
+    <p class="text-gray-500 mt-4">You have nothing checked out currently. You can check out resources from the main app!</p>
+  <% end %>
 </div>

@@ -16,6 +16,8 @@ class ProfilesController < ApplicationController
       @profile = current_user.profile
     end
 
+    private
+
     def profile_params
       params.require(:profile).permit(
         :picture,

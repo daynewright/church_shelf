@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_19_185242) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_20_162805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,8 +57,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_19_185242) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "returned", default: false, null: false
+    t.integer "quantity"
     t.index ["resource_id"], name: "index_checkouts_on_resource_id"
-    t.index ["user_id", "resource_id"], name: "index_checkouts_on_user_id_and_resource_id", unique: true
+    t.index ["user_id", "resource_id"], name: "index_checkouts_on_user_id_and_resource_id_when_not_returned", unique: true, where: "(returned = false)"
     t.index ["user_id"], name: "index_checkouts_on_user_id"
   end
 
