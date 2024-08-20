@@ -9,7 +9,7 @@
         <h1 class="hidden sm:block ml-2 text-gray-500 font-light text-2xl">Church Shelf</h1>
       <% end %>
       </div>
-      <% if request.path == root_path %>
+      <% if request.path == root_path || request.path == search_path %>
         <div class="z-0 flex flex-1 items-center justify-center px-2 sm:absolute sm:inset-0">
           <div class="w-full sm:max-w-xs">
             <%= form_tag search_path, method: :get, class: "flex items-center" do %>
