@@ -32,7 +32,18 @@ You can explore the ChurchShelf application live at [church-shelf.onrender.com](
    - Users can add resources to a wishlist for future check-out.
 
 6. **User Profile**:
+
    - Users can view and manage their profile and check-out history.
+
+# APP SCREEENSHOTS
+
+![home](images/home.png)
+
+![resource](images/resource.png)
+
+![checkout_action](images/checkout_action.png)
+
+![checkout](images/checkout.png)
 
 # FUTURE WORK
 
@@ -76,13 +87,3 @@ You can explore the ChurchShelf application live at [church-shelf.onrender.com](
 ### 3. Authorization
 
 - Use role-based authorization or a gem like Pundit to enforce permissions based on user memberships.
-
-# APP SCREEENSHOTS
-
-![home](images/home.png)
-
-![resource](images/resource.png)
-
-![checkout_action](images/checkout_action.png)
-
-![checkout](images/checkout.png)
