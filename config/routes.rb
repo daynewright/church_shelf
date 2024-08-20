@@ -13,10 +13,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+  get "search", to: "home#search", as: "search"
 
   resources :resources
   resources :wishlists, only: [ :index ]
-  resources :checkouts, only: [ :create, :index ]
+  resources :checkouts, only: [ :create, :update, :index ] do
+    member do
+      patch :return
+    end
+  end
 
   resource :profile, only: [ :edit, :update ]
 

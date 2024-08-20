@@ -1,11 +1,11 @@
-<div class="resource-item group relative cursor-pointer flex flex-col h-full">
+<div class="resource-item group relative cursor-pointer flex flex-col">
     <%= link_to resource_path(resource) do %>
     <div class="relative w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-85 lg:h-80">
         <%= image_tag resource.image, class: "h-full w-full object-cover object-center lg:h-full lg:w-full border", alt: resource.title %>
         <% wishlist_item = resource.wishlist_for_user(current_user) %>
         <button 
             aria-label="<%= wishlist_item.present? ? 'Remove from wishlist' : 'Add to wishlist' %>"
-            class="absolute z-10 top-0 p-1 stroke-2 <%= wishlist_item.present? ? "text-yellow-500 stroke-yellow-700" : "text-gray-500 stroke-slate-700" %>"
+            class="absolute top-0 p-1 stroke-2 <%= wishlist_item.present? ? "text-yellow-500 stroke-yellow-700" : "text-gray-500 stroke-slate-700" %>"
             data-controller="wishlist"
             data-action="click->wishlist#updateWishlist"
             data-wishlist-status="<%= wishlist_item.present? %>"
@@ -26,7 +26,7 @@
                 <h3 class="text-sm font-bold">
                     <%= resource.title %>                
                 </h3>
-                <p class="text-sm font-light text-slate-600"><%= resource.description %></p>
+                <p class="text-sm font-light text-slate-600"><%= truncate(resource.description, length: 50) %></p>
             </div>
             <div class="text-sm flex items-start">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
@@ -35,9 +35,11 @@
                 <span class="text-slate-700 ps-1">(<%= resource.rating %>)</span>
             </div>
         </div>
+        <% unless hide_available %>
         <div class="text-sm font-medium text-gray-700 mt-auto">
             <p><%= resource.available_copies %> of <%= resource.total_copies %> available </p>
         </div>
+        <% end %>
     </div>
     <% end %>
 </div>

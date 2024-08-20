@@ -59,7 +59,7 @@ Category.create!(
 
 10.times do |i|
     total_copies = rand(1..10)
-    available_copies = rand(0..total_copies)
+    # available_copies = rand(0..total_copies)
 
     resource = Resource.create!(
       title: Faker::Book.title,
@@ -71,7 +71,7 @@ Category.create!(
       publisher: Faker::Book.publisher,
       language: Faker::Nation.language,
       total_copies: total_copies,
-      available_copies: available_copies,
+      available_copies: total_copies,
       location: Faker::Address.secondary_address,
     )
 
