@@ -2,9 +2,6 @@
 # exit on error
 set -o errexit
 
-# Install OpenSSL (for Debian/Ubuntu based systems)
-apt-get update -qq && apt-get install -y build-essential libssl-dev libreadline-dev zlib1g-dev
-
 bundle install
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
